@@ -52,12 +52,11 @@ func (d *Done) toggle(index int) error{
 
 	isCompleted := (*d)[index].Completed
 
-	if !isCompleted{
+	if !isCompleted { // isCompleted == false
 		completionTime := time.Now()
 		(*d)[index].CompletedAt = &completionTime
+		(*d)[index].Completed = !isCompleted
 	}
-
-	(*d)[index].Completed = !isCompleted
 
 	return nil
 }
