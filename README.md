@@ -100,12 +100,8 @@ Move <code>todocli.exe</code> to a directory included in your Windows PATH
 <h3>Delete a task</h3>
 <pre><code>todocli -del 0</code></pre>
 
-<<<<<<< HEAD
-
-
 <hr>
 
-=======
 <div>
     <h3>This is version one and next step will be to:-</h3> 
     <ul>
