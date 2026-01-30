@@ -1,58 +1,87 @@
-# Go_Todo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go_Todo</title>
+</head>
+<body>
 
+<h1>Go_Todo</h1>
 
-A simple command-line Todo List application written in Go.
-This tool lets you add, edit, delete, toggle, and list tasks directly from your terminal.
+<p>
+A simple command-line Todo List application written in Go.<br>
+This tool lets you add, edit, delete, toggle, and list tasks directly from your terminal.<br>
 All todos are persisted locally in a JSON file inside your home directory.
+</p>
 
-<h3>Features<h3>
+<hr>
 
+<h2>Features</h2>
 <ul>
-<li>Add new tasks</li>
-<li>Edit existing tasks</li>
-<li>Delete tasks</li>
-<li>Mark tasks as completed</li>
-<li>List all tasks in a table format</li>
-<li>Persistent storage using JSON</li>
+    <li>Add new tasks</li>
+    <li>Edit existing tasks</li>
+    <li>Delete tasks</li>
+    <li>Mark tasks as completed</li>
+    <li>List all tasks in a table format</li>
+    <li>Persistent storage using JSON</li>
 </ul>
 
-Installation
-Prerequisites
+<hr>
 
-Go 1.20+ installed
+<h2>Installation</h2>
 
-Clone the repository
-git clone https://github.com/yourusername/todocli.git
-cd todocli
+<h3>Prerequisites</h3>
+<ul>
+    <li>Go 1.20 or higher</li>
+</ul>
 
-Build the binary
-go build -o todocli
+<h3>Clone the repository</h3>
+<pre><code>git clone https://github.com/yourusername/todocli.git
+cd todocli</code></pre>
 
+<h3>Build the binary</h3>
+<pre><code>go build -o todocli</code></pre>
 
-(Optional) Move it to your PATH:
+<h3>(Optional) Move binary to PATH</h3>
+<pre><code>sudo mv todocli /usr/local/bin/</code></pre>
 
-sudo mv todocli /usr/local/bin/
+<hr>
 
-Usage
+<h2>Usage</h2>
 
-Run the application using command-line flags.
+<p>Run the application using command-line flags.</p>
 
-Add a new task
-todocli -add "Buy groceries"
+<h3>Add a new task</h3>
+<pre><code>todocli -add "Buy groceries"</code></pre>
 
-List all tasks
-todocli -list
+<h3>List all tasks</h3>
+<pre><code>todocli -list</code></pre>
 
-Edit a task
-todocli -edit 0:Buy milk and bread
+<h3>Edit a task</h3>
+<pre><code>todocli -edit 0:Buy milk and bread</code></pre>
 
+<p><strong>Format:</strong></p>
+<pre><code>-edit &lt;task_index&gt;:&lt;new_title&gt;</code></pre>
 
-Format:
+<h3>Toggle task completion</h3>
+<pre><code>todocli -toggle 0</code></pre>
 
--edit <task_index>:<new_title>
+<h3>Delete a task</h3>
+<pre><code>todocli -del 0</code></pre>
 
-Toggle task completion
-todocli -toggle 0
+<hr>
 
-Delete a task
-todocli -del 0
+<h2>Data Storage</h2>
+<p>Todos are stored locally in the following file:</p>
+<pre><code>~/.todocli/todos.json</code></pre>
+
+<p>The directory is created automatically if it does not exist.</p>
+
+<hr>
+
+<h2>License</h2>
+<p>MIT License</p>
+
+</body>
+</html>
