@@ -75,24 +75,6 @@ Move <code>todocli.exe</code> to a directory included in your Windows PATH
 
 <hr>
 
-<h3>Cross-compile Linux binary from Windows</h3>
-<p>You can build a Linux binary directly from Windows without Docker or WSL.</p>
-
-<h4>PowerShell</h4>
-<pre><code>$env:CGO_ENABLED=0
-$env:GOOS="linux"
-$env:GOARCH="amd64"
-go build -o todocli</code></pre>
-
-<h4>CMD</h4>
-<pre><code>set CGO_ENABLED=0
-set GOOS=linux
-set GOARCH=amd64
-go build -o todocli</code></pre>
-
-<hr>
-
-
 <h2>Usage</h2>
 
 <p>Run the application using command-line flags.</p>
