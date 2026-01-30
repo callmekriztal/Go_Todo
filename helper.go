@@ -82,7 +82,7 @@ func (d *Done) print() {
 	table.SetHeaders("Task No","Title","Completed","Created At","Completed At")
 
 	for index,t := range *d{
-		completed := "🙅‍♀️" 
+		completed := "✖️" 
 		completedAt := ""
 		
 		if t.Completed {
