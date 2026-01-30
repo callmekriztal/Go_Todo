@@ -93,7 +93,7 @@ func (d *Done) print() {
 			}
 		}
 		table.AddRow(
-			strconv.Itoa(index),
+			strconv.Itoa(index+1),
 			t.Title,
 			completed,
 			t.CreatedAt.Format(time.RFC1123),

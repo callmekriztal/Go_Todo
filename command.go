@@ -46,17 +46,17 @@ func (cf *CmdFlags) Execute(done *Done){
 		}
 		
 		index ,err := strconv.Atoi(parts[0])
-		if err != nil {
+		if err != nil || index<=0 {
 			fmt.Println("Error: invalid index")
 			os.Exit(1)
 		}
-
+		index--
 		done.edit(index,parts[1])
 
 	case cf.Toggle != -1:
-		done.toggle(cf.Toggle)
+		done.toggle(cf.Toggle-1)
 	case cf.Del != -1:
-		done.delete(cf.Del)
+		done.delete(cf.Del-1)
 
 	default:
 		fmt.Println("Invalid command")
