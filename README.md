@@ -111,7 +111,6 @@ Move <code>todocli.exe</code> to a directory included in your Windows PATH
     </ul>
 </div>
 <hr>
->>>>>>> 8477b1c (updated the readme)
 <h2>License</h2>
 <p>MIT License</p>
 
