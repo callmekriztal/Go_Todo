@@ -37,8 +37,8 @@ All todos are persisted locally in a JSON file inside your home directory.
 </ul>
 
 <h3>Clone the repository</h3>
-<pre><code>git clone https://github.com/yourusername/todocli.git
-cd todocli</code></pre>
+<pre><code>git clone https://github.com/callmekriztal/Go_Todo.git</code>
+<code>cd Go_Todo</code></pre>
 
 <h3>Build the binary</h3>
 <pre><code>go build -o todocli</code></pre>
@@ -73,10 +73,22 @@ cd todocli</code></pre>
 <h3>Delete a task</h3>
 <pre><code>todocli -del 0</code></pre>
 
+<<<<<<< HEAD
 
 
 <hr>
 
+=======
+<div>
+    <h3>This is version one and next step will be to:-</h3> 
+    <ul>
+    <li>1.include storage or daily todos that will be saved automatically each day </li>
+    <li>2.Add priority coloum for each task</li>
+    <li>3.clear completed task</li>
+    </ul>
+</div>
+<hr>
+>>>>>>> 8477b1c (updated the readme)
 <h2>License</h2>
 <p>MIT License</p>
 
