@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strconv"
 	"os"
+	"path/filepath"
 	"github.com/aquasecurity/table"
 )
 
@@ -100,4 +101,18 @@ func (d *Done) print() {
 		)
 	}
 	table.Render()
+}
+
+func todoFilePath() (string,error){
+	home,err := os.UserHomeDir()
+	if err != nil {
+		return "",err
+	}
+	dir := filepath.Join(home,".todocli")
+
+	if err:= os.MkdirAll(dir,0700);err != nil {
+		return "",err
+	}
+
+	return filepath.Join(dir,"todos.json"),nil 
 }

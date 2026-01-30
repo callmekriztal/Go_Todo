@@ -3,7 +3,11 @@ package main
 func main(){
 	done := Done{}
 	
-	storage := NewStorage[Done]("todos.json")
+	path,err := todoFilePath()
+	if err!= nil {
+		panic(err)
+	}
+	storage := NewStorage[Done](path)
 	storage.Load(&done)
 
 	cmdFlags := NewCmdFlags()
