@@ -1,14 +1,14 @@
 package main
 
-import "fmt"
-
 func main(){
 	done := Done{}
-	done.add("Buy Milk")
-	done.add("Buy Bread")
-	fmt.Printf("%v \n",done)
+	
+	storage := NewStorage[Done]("todos.json")
+	storage.Load(&done)
 
-	done.Delete(0)
-	fmt.Printf("%v \n",done)
+	cmdFlags := NewCmdFlags()
+	cmdFlags.Execute(&done)
+
+	storage.Save(done)
 
 }
