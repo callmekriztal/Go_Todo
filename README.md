@@ -33,6 +33,7 @@ All todos are persisted locally in a JSON file inside your home directory.
 <h3>Prerequisites</h3>
 <ul>
     <li>Go 1.20 or higher</li>
+    <li>Need a linux system</li>
 </ul>
 
 <h3>Clone the repository</h3>
@@ -63,19 +64,16 @@ cd todocli</code></pre>
 <p><strong>Format:</strong></p>
 <pre><code>-edit &lt;task_index&gt;:&lt;new_title&gt;</code></pre>
 
+<p><strong>Example:</strong></p>
+<pre><code>-edit 1:"Study Go"</code></pre>
+
 <h3>Toggle task completion</h3>
 <pre><code>todocli -toggle 0</code></pre>
 
 <h3>Delete a task</h3>
 <pre><code>todocli -del 0</code></pre>
 
-<hr>
 
-<h2>Data Storage</h2>
-<p>Todos are stored locally in the following file:</p>
-<pre><code>~/.todocli/todos.json</code></pre>
-
-<p>The directory is created automatically if it does not exist.</p>
 
 <hr>
 
