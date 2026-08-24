@@ -3,7 +3,6 @@ package main
 import (
 	"time"
 	"errors"
-	"fmt"
 	"strconv"
 	"os"
 	"path/filepath"
@@ -11,7 +10,7 @@ import (
 )
 
 type Todo struct {
-	Title string 
+	Title string  
 	Completed bool 
 	CreatedAt time.Time
 	CompletedAt *time.Time
@@ -32,7 +31,6 @@ func (d *Done) add(title string){
 func (d *Done) validateIndex(index int) error{
 	if index < 0 || index >= len(*d) {
 		err := errors.New("Invalid index")
-		fmt.Println(err)
 		return err
 	}
 	return nil

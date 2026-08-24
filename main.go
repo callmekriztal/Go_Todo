@@ -3,6 +3,7 @@ package main
 import(
 	"os"
 	"errors"
+	"fmt"
 )
 
 func main(){
@@ -23,6 +24,12 @@ func main(){
 	cmdFlags := NewCmdFlags()
 	cmdFlags.Execute(&done)
 
-	storage.Save(done)
+	if err := cmdFlags.Execute(&done); err!= nil{
+		fmt.Fprintln(os.Stderr,err)
+		os.Exit(1)
+	}
 
+	if err:= storage.Save(done); err!=nil{
+		panic(err)
+	}
 }

@@ -32,7 +32,7 @@ func NewCmdFlags() *CmdFlags{
 }
 
 
-func (cf *CmdFlags) Execute(done *Done){
+func (cf *CmdFlags) Execute(done *Done) error{
 	switch {
 	case cf.List:
 		done.print()
@@ -51,14 +51,22 @@ func (cf *CmdFlags) Execute(done *Done){
 			os.Exit(1)
 		}
 		index--
-		done.edit(index,parts[1])
+		if err := done.edit(index,parts[1]); err != nil{
+			return err
+		}
 
 	case cf.Toggle != -1:
-		done.toggle(cf.Toggle-1)
+		if err := done.toggle(cf.Toggle-1); err != nil{
+			return err
+		} 
 	case cf.Del != -1:
-		done.delete(cf.Del-1)
+		if err := done.delete(cf.Del-1); err != nil {
+			return err
+		}
 
 	default:
 		fmt.Println("Invalid command")
 	}
+
+	return nil
 }
