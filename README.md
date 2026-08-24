@@ -1,158 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+# GoTodo
 
-<h1>Go_Todo</h1>
-
-<p>
 A simple command-line Todo List application written in Go.
-</p>
 
-<p>
-Go_Todo lets you manage tasks directly from your terminal and
-persists them locally using JSON.
-</p>
+GoTodo lets you manage tasks directly from your terminal and persists them locally using JSON.
 
-<hr>
+## Features
 
-<h2>Features</h2>
+* Add tasks
+* List tasks in a formatted table
+* Edit tasks
+* Delete tasks
+* Toggle task completion
+* Clear the entire task list
+* Persistent JSON storage
+* Task creation and completion timestamps
+* Input validation and error handling
+* Unit tests
 
-<ul>
-    <li>Add tasks</li>
-    <li>List all tasks</li>
-    <li>Edit tasks</li>
-    <li>Delete tasks</li>
-    <li>Toggle task completion</li>
-    <li>Clear the entire task list</li>
-    <li>Persistent JSON storage</li>
-    <li>Task creation and completion timestamps</li>
-    <li>Input validation and error handling</li>
-    <li>Unit tests</li>
-</ul>
+## Storage
 
-<hr>
-
-<h2>Storage</h2>
-
-<p>
 Tasks are stored locally at:
-</p>
 
-<pre><code>~/.todocli/todos.json</code></pre>
+```text
+~/.todocli/todos.json
+```
 
-<p>
-The application does not require a database or external service.
-</p>
+No database or external service is required.
 
-<hr>
+## Installation
 
-<h2>Installation</h2>
+### Linux — AppImage
 
-<h3>Prerequisites</h3>
+Download `GoTodo-x86_64.AppImage` from the GitHub Releases page.
 
-<ul>
-    <li>Go 1.20 or newer</li>
-    <li>Linux, macOS, or Windows for building from source</li>
-</ul>
+Make it executable:
 
-<h3>Clone the repository</h3>
+```bash
+chmod +x GoTodo-x86_64.AppImage
+```
 
-<pre><code>git clone https://github.com/callmekriztal/Go_Todo.git
-cd Go_Todo</code></pre>
+Run it:
 
-<hr>
+```bash
+./GoTodo-x86_64.AppImage --list
+```
 
-<h2>Build from Source</h2>
+The AppImage does not require installation or Go to be installed.
 
-<h3>Linux</h3>
+### Linux — Standalone Binary
 
-<pre><code>go build -trimpath -ldflags="-s -w" -o todocli .</code></pre>
+Download `todocli-linux-amd64` from the GitHub Releases page.
 
-<p>Run:</p>
+Make it executable:
 
-<pre><code>./todocli --help</code></pre>
+```bash
+chmod +x todocli-linux-amd64
+```
 
-<h3>Windows</h3>
+For system-wide installation, move it to `/usr/local/bin`:
 
-<pre><code>go build -o todocli.exe .</code></pre>
+```bash
+sudo install -m 755 todocli-linux-amd64 /usr/local/bin/todocli
+```
 
-<h3>Install on Linux</h3>
+You can now run it from anywhere:
 
-<pre><code>sudo install -m 755 todocli /usr/local/bin/todocli</code></pre>
+```bash
+todocli --list
+```
 
-<p>Then:</p>
+Check that it is available:
 
-<pre><code>todocli --help</code></pre>
+```bash
+which todocli
+```
 
-<hr>
+Expected:
 
-<h2>Usage</h2>
+```text
+/usr/local/bin/todocli
+```
 
-<h3>Add a task</h3>
+### Build from Source
 
-<pre><code>todocli --add "Learn Go"</code></pre>
+Requirements:
 
-<h3>List tasks</h3>
+* Go 1.20 or newer
+* Linux, macOS, or Windows
 
-<pre><code>todocli --list</code></pre>
+Clone the repository and build:
 
-<h3>Edit a task</h3>
+```bash
+git clone https://github.com/callmekriztal/Go_Todo.git
+cd Go_Todo
+go build -trimpath -ldflags="-s -w" -o todocli .
+```
 
-<pre><code>todocli --edit 1:"Learn advanced Go"</code></pre>
+Install system-wide on Linux:
 
-<p>
-Task indexes start at <strong>1</strong>.
-</p>
+```bash
+sudo install -m 755 todocli /usr/local/bin/todocli
+```
 
-<h3>Toggle completion</h3>
+Verify:
 
-<pre><code>todocli --toggle 1</code></pre>
+```bash
+todocli --help
+```
 
-<p>
+## Usage
+
+### Add a task
+
+```bash
+todocli --add "Learn Go"
+```
+
+### List tasks
+
+```bash
+todocli --list
+```
+
+### Edit a task
+
+Task indexes start at `1`.
+
+```bash
+todocli --edit 1:"Learn advanced Go"
+```
+
+Format:
+
+```text
+--edit <task_index>:<new_title>
+```
+
+### Toggle task completion
+
+```bash
+todocli --toggle 1
+```
+
 Running the command again marks the task as incomplete.
-</p>
 
-<h3>Delete a task</h3>
+### Delete a task
 
-<pre><code>todocli --del 1</code></pre>
+```bash
+todocli --del 1
+```
 
-<h3>Clear all tasks</h3>
+### Clear all tasks
 
-<pre><code>todocli --clear</code></pre>
+```bash
+todocli --clear
+```
 
-<p>
-This removes every task from the current todo list.
-</p>
+This permanently removes every task from the current todo list.
 
-<h3>Show help</h3>
+### Show help
 
-<pre><code>todocli --help</code></pre>
+```bash
+todocli --help
+```
 
-<hr>
+## Example
 
-<h2>Testing</h2>
+```bash
+$ todocli --add "Learn Go"
+$ todocli --add "Build a backend"
+$ todocli --list
+```
 
-<p>Run the test suite:</p>
+Example output:
 
-<pre><code>go test ./...</code></pre>
+```text
+┌─────────┬─────────────────┬───────────┬───────────────────────────────┬──────────────┐
+│ Task No │      Title      │ Completed │          Created At           │ Completed At │
+├─────────┼─────────────────┼───────────┼───────────────────────────────┼──────────────┤
+│ 1       │ Learn Go        │ ✖️         │ Mon, 24 Aug 2026 19:00:00 IST │              │
+│ 2       │ Build a backend │ ✖️         │ Mon, 24 Aug 2026 19:01:00 IST │              │
+└─────────┴─────────────────┴───────────┴───────────────────────────────┴──────────────┘
+```
 
-<p>Run tests with verbose output:</p>
+Complete a task:
 
-<pre><code>go test -v</code></pre>
+```bash
+todocli --toggle 1
+```
 
-<p>Run static analysis:</p>
+## Testing
 
-<pre><code>go vet ./...</code></pre>
+Run the complete test suite:
 
-<hr>
+```bash
+go test ./...
+```
 
-<h2>Project Structure</h2>
+Run tests with verbose output:
 
-<pre><code>Go_Todo/
+```bash
+go test -v
+```
+
+Run static analysis:
+
+```bash
+go vet ./...
+```
+
+## Project Structure
+
+```text
+Go_Todo/
 ├── command.go       # CLI flags and command execution
 ├── helper.go        # Todo operations and display
 ├── storage.go       # JSON persistence
@@ -160,13 +220,19 @@ This removes every task from the current todo list.
 ├── helper_test.go   # Unit tests
 ├── go.mod
 ├── go.sum
-└── README.md</code></pre>
+└── README.md
+```
 
-<hr>
+## Release
 
-<h2>License</h2>
+Prebuilt Linux binaries are available through GitHub Releases:
 
-<p>MIT License</p>
+* `GoTodo-x86_64.AppImage` — portable Linux AppImage
+* `todocli-linux-amd64` — standalone Linux binary
 
-</body>
-</html>
+The AppImage can be run without installation. The standalone binary can be installed system-wide using `/usr/local/bin`.
+
+## License
+
+MIT License
+
