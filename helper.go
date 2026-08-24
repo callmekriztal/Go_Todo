@@ -54,12 +54,13 @@ func (d *Done) toggle(index int) error{
 		return err
 	}
 
-	isCompleted := (*d)[index].Completed
-
-	if !isCompleted { 
+	if (*d)[index].Completed {
+		(*d)[index].Completed = false
+		(*d)[index].CompletedAt = nil
+	} else {
 		completionTime := time.Now()
 		(*d)[index].CompletedAt = &completionTime
-		(*d)[index].Completed = !isCompleted
+		(*d)[index].Completed = true
 	}
 
 	return nil
@@ -68,7 +69,7 @@ func (d *Done) toggle(index int) error{
 func (d *Done) edit(index int,title string) error{
 
 	if err := d.validateIndex(index);err != nil {
-		return nil 
+		return err
 	} 
 
 	(*d)[index].Title = title
