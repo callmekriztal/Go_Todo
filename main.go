@@ -1,5 +1,10 @@
 package main
 
+import(
+	"os"
+	"errors"
+)
+
 func main(){
 	done := Done{}
 	
@@ -8,8 +13,13 @@ func main(){
 		panic(err)
 	}
 	storage := NewStorage[Done](path)
-	storage.Load(&done)
 
+	if err:= storage.Load(&done); err!= nil{
+		if !errors.Is(err,os.ErrNotExist){
+			panic(err)
+		}
+	}
+	
 	cmdFlags := NewCmdFlags()
 	cmdFlags.Execute(&done)
 
