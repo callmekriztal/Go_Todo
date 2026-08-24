@@ -1,4 +1,6 @@
 todocli
-todos.json
+todocli-linux-amd64
 *.AppImage
-dist/
+AppDir/
+todos.json
+
