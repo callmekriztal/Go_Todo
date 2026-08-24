@@ -1,54 +1,55 @@
 package main
 
 import (
-	"time"
 	"errors"
-	"strconv"
+	"github.com/aquasecurity/table"
 	"os"
 	"path/filepath"
-	"github.com/aquasecurity/table"
+	"strconv"
+	"time"
 )
 
+var ErrInvalidIndex = errors.New("invalid index")
+
 type Todo struct {
-	Title string  
-	Completed bool 
-	CreatedAt time.Time
+	Title       string
+	Completed   bool
+	CreatedAt   time.Time
 	CompletedAt *time.Time
 }
 
 type Done []Todo
 
-func (d *Done) add(title string){
+func (d *Done) add(title string) {
 	todo := Todo{
-		Title:			title,
-		Completed: 		false,
-		CreatedAt: 		time.Now(),
-		CompletedAt:	nil ,
+		Title:       title,
+		Completed:   false,
+		CreatedAt:   time.Now(),
+		CompletedAt: nil,
 	}
 	*d = append(*d, todo)
 }
 
-func (d *Done) validateIndex(index int) error{
+func (d *Done) validateIndex(index int) error {
 	if index < 0 || index >= len(*d) {
-		err := errors.New("Invalid index")
-		return err
+		return ErrInvalidIndex
 	}
 	return nil
 }
 
-func (d *Done) delete(index int) error{	
-	if err := d.validateIndex(index) ; err != nil {
+func (d *Done) delete(index int) error {
+	if err := d.validateIndex(index); err != nil {
 		return err
 	}
 
-	*d= append((*d)[:index],(*d)[index+1:]...)
+	*d = append((*d)[:index], (*d)[index+1:]...)
 
 	return nil
 }
 
-func (d *Done) toggle(index int) error{
+func (d *Done) toggle(index int) error {
 
-	if err := d.validateIndex(index); err!= nil {
+	if err := d.validateIndex(index); err != nil {
 		return err
 	}
 
@@ -64,27 +65,26 @@ func (d *Done) toggle(index int) error{
 	return nil
 }
 
-func (d *Done) edit(index int,title string) error{
+func (d *Done) edit(index int, title string) error {
 
-	if err := d.validateIndex(index);err != nil {
+	if err := d.validateIndex(index); err != nil {
 		return err
-	} 
+	}
 
 	(*d)[index].Title = title
 
-	return nil 
+	return nil
 }
-
 
 func (d *Done) print() {
 	table := table.New(os.Stdout)
 	table.SetRowLines(false)
-	table.SetHeaders("Task No","Title","Completed","Created At","Completed At")
+	table.SetHeaders("Task No", "Title", "Completed", "Created At", "Completed At")
 
-	for index,t := range *d{
-		completed := "✖️" 
+	for index, t := range *d {
+		completed := "✖️"
 		completedAt := ""
-		
+
 		if t.Completed {
 			completed = "✅"
 			if t.CompletedAt != nil {
@@ -102,16 +102,20 @@ func (d *Done) print() {
 	table.Render()
 }
 
-func todoFilePath() (string,error){
-	home,err := os.UserHomeDir()
+func todoFilePath() (string, error) {
+	home, err := os.UserHomeDir()
 	if err != nil {
-		return "",err
+		return "", err
 	}
-	dir := filepath.Join(home,".todocli")
+	dir := filepath.Join(home, ".todocli")
 
-	if err:= os.MkdirAll(dir,0700);err != nil {
-		return "",err
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		return "", err
 	}
 
-	return filepath.Join(dir,"todos.json"),nil 
+	return filepath.Join(dir, "todos.json"), nil
+}
+
+func (d *Done) clear() {
+	*d = Done{}
 }

@@ -9,109 +9,163 @@
 <h1>Go_Todo</h1>
 
 <p>
-A simple command-line Todo List application written in Go.<br>
-This tool lets you add, edit, delete, toggle, and list tasks directly from your terminal.<br>
-All todos are persisted locally in a JSON file inside your home directory.
+A simple command-line Todo List application written in Go.
+</p>
+
+<p>
+Go_Todo lets you manage tasks directly from your terminal and
+persists them locally using JSON.
 </p>
 
 <hr>
 
 <h2>Features</h2>
+
 <ul>
-    <li>Add new tasks</li>
-    <li>Edit existing tasks</li>
+    <li>Add tasks</li>
+    <li>List all tasks</li>
+    <li>Edit tasks</li>
     <li>Delete tasks</li>
-    <li>Mark tasks as completed</li>
-    <li>List all tasks in a table format</li>
-    <li>Persistent storage using JSON</li>
+    <li>Toggle task completion</li>
+    <li>Clear the entire task list</li>
+    <li>Persistent JSON storage</li>
+    <li>Task creation and completion timestamps</li>
+    <li>Input validation and error handling</li>
+    <li>Unit tests</li>
 </ul>
+
+<hr>
+
+<h2>Storage</h2>
+
+<p>
+Tasks are stored locally at:
+</p>
+
+<pre><code>~/.todocli/todos.json</code></pre>
+
+<p>
+The application does not require a database or external service.
+</p>
 
 <hr>
 
 <h2>Installation</h2>
 
-<hr>
-
 <h3>Prerequisites</h3>
+
 <ul>
-    <li>Go 1.20 or higher</li>
-    <li>Need a linux system</li>
+    <li>Go 1.20 or newer</li>
+    <li>Linux, macOS, or Windows for building from source</li>
 </ul>
 
 <h3>Clone the repository</h3>
+
 <pre><code>git clone https://github.com/callmekriztal/Go_Todo.git
 cd Go_Todo</code></pre>
 
 <hr>
 
-<h2>Build Instructions</h2>
+<h2>Build from Source</h2>
 
 <h3>Linux</h3>
 
-<h4>Build for current Linux system</h4>
-<pre><code>go build -o todocli</code></pre>
+<pre><code>go build -trimpath -ldflags="-s -w" -o todocli .</code></pre>
 
-<h4>Build static Linux binary (recommended for servers / Docker)</h4>
-<pre><code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o todocli</code></pre>
+<p>Run:</p>
 
-<h4>(Optional) Move binary to PATH</h4>
-<pre><code>sudo mv todocli /usr/local/bin/</code></pre>
-
-<hr>
+<pre><code>./todocli --help</code></pre>
 
 <h3>Windows</h3>
 
-<h4>Build for Windows (native)</h4>
-<pre><code>go build -o todocli.exe</code></pre>
+<pre><code>go build -o todocli.exe .</code></pre>
 
-<h4>Run the application</h4>
-<pre><code>todocli.exe -list</code></pre>
+<h3>Install on Linux</h3>
 
-<h4>(Optional) Add to PATH</h4>
-<p>
-Move <code>todocli.exe</code> to a directory included in your Windows PATH
-(e.g. <code>C:\Windows\System32</code> or a custom tools folder).
-</p>
+<pre><code>sudo install -m 755 todocli /usr/local/bin/todocli</code></pre>
+
+<p>Then:</p>
+
+<pre><code>todocli --help</code></pre>
 
 <hr>
 
 <h2>Usage</h2>
 
-<p>Run the application using command-line flags.</p>
+<h3>Add a task</h3>
 
-<h3>Add a new task</h3>
-<pre><code>todocli -add "Buy groceries"</code></pre>
+<pre><code>todocli --add "Learn Go"</code></pre>
 
-<h3>List all tasks</h3>
-<pre><code>todocli -list</code></pre>
+<h3>List tasks</h3>
+
+<pre><code>todocli --list</code></pre>
 
 <h3>Edit a task</h3>
-<pre><code>todocli -edit 0:Buy milk and bread</code></pre>
 
-<p><strong>Format:</strong></p>
-<pre><code>-edit &lt;task_index&gt;:&lt;new_title&gt;</code></pre>
+<pre><code>todocli --edit 1:"Learn advanced Go"</code></pre>
 
-<p><strong>Example:</strong></p>
-<pre><code>-edit 1:"Study Go"</code></pre>
+<p>
+Task indexes start at <strong>1</strong>.
+</p>
 
-<h3>Toggle task completion</h3>
-<pre><code>todocli -toggle 0</code></pre>
+<h3>Toggle completion</h3>
+
+<pre><code>todocli --toggle 1</code></pre>
+
+<p>
+Running the command again marks the task as incomplete.
+</p>
 
 <h3>Delete a task</h3>
-<pre><code>todocli -del 0</code></pre>
+
+<pre><code>todocli --del 1</code></pre>
+
+<h3>Clear all tasks</h3>
+
+<pre><code>todocli --clear</code></pre>
+
+<p>
+This removes every task from the current todo list.
+</p>
+
+<h3>Show help</h3>
+
+<pre><code>todocli --help</code></pre>
 
 <hr>
 
-<div>
-    <h3>This is version one and next step will be to:-</h3> 
-    <ul>
-    <li>1.include storage or daily todos that will be saved automatically each day </li>
-    <li>2.Add priority coloum for each task</li>
-    <li>3.clear completed task</li>
-    </ul>
-</div>
+<h2>Testing</h2>
+
+<p>Run the test suite:</p>
+
+<pre><code>go test ./...</code></pre>
+
+<p>Run tests with verbose output:</p>
+
+<pre><code>go test -v</code></pre>
+
+<p>Run static analysis:</p>
+
+<pre><code>go vet ./...</code></pre>
+
 <hr>
+
+<h2>Project Structure</h2>
+
+<pre><code>Go_Todo/
+├── command.go       # CLI flags and command execution
+├── helper.go        # Todo operations and display
+├── storage.go       # JSON persistence
+├── main.go          # Application entry point
+├── helper_test.go   # Unit tests
+├── go.mod
+├── go.sum
+└── README.md</code></pre>
+
+<hr>
+
 <h2>License</h2>
+
 <p>MIT License</p>
 
 </body>

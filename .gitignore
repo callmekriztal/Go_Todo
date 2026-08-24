@@ -1,0 +1,4 @@
+todocli
+todos.json
+*.AppImage
+dist/
