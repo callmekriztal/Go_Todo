@@ -235,3 +235,5 @@ The AppImage can be run without installation. The standalone binary can be insta
 ## License
 
 MIT License
+
+Made by Christy Dominic Cyrl
